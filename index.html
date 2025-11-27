@@ -1,140 +1,142 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Wirtualny Spacer Wrocław</title>
-<style>
- body {
-   font-family: Arial, sans-serif;
-   margin:0;
-   padding:0;
-   color:#333;
- }
- header {
-   padding:20px;
-   display:flex;
-   align-items:center;
- }
- header img {
-   height:70px;
-   margin-right:20px;
- }
- h1 {
-   font-size:2.4rem;
-   margin:0;
- }
- .hero {
-   position:relative;
-   width:100%;
-   overflow:hidden;
- }
- .hero img {
-   width:100%;
-   display:block;
- }
- section {
-   max-width:900px;
-   margin:40px auto;
-   padding:0 20px;
- }
- h2 {
-   font-size:1.8rem;
-   margin-bottom:15px;
- }
- .gallery{
-   display:flex;
-   flex-wrap:wrap;
-   gap:20px;
-   margin-top:20px;
- }
- .gallery img {
-   width:100%;
-   max-width:280px;
-   border-radius:4px;
- }
- .button {
-   display:inline-block;
-   background:#444;
-   color:white;
-   padding:12px 20px;
-   text-decoration:none;
-   border-radius:5px;
-   margin-top:15px;
- }
- footer {
-   background:#f0f0f0;
-   padding:20px;
-   margin-top:40px;
-   text-align:center;
-   font-size:0.9rem;
- }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wirtualne Spacery Wrocław</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; color:#333; }
+    header {
+      position: fixed; top: 0; width: 100%; background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 30px;
+    }
+    .logo img { height: 50px; }
+    nav a { margin: 0 12px; text-decoration: none; color: #333; font-weight: 600; }
+    nav a:hover { color: #6a0dad; }
+    .phone-box { text-align: right; font-size: 14px; font-weight: bold; }
+    .phone-box a { text-decoration: none; color: #6a0dad; font-size: 18px; display: block; }
+
+    .section { padding: 120px 30px 80px; max-width:1200px; margin:auto; }
+    h2 { font-size: 32px; margin-bottom: 20px; }
+
+    /* HERO */
+    .hero { position: relative; height: 70vh; background-size: cover; background-position:center;
+            display:flex; align-items:center; justify-content:center; color:white; text-shadow:0 0 10px #000; }
+
+    /* CZYM JEST WIRTUALNY SPACER */
+    .flex-row { display:flex; gap:40px; align-items:center; flex-wrap:wrap; }
+    .benefits { margin-top:20px; }
+    .benefit-icons { display:flex; gap:40px; margin:20px 0; }
+    .benefit-item { text-align:center; }
+    .benefit-item img { width:60px; }
+    .call-btn { display:inline-block; background:#6a0dad; padding:12px 24px; color:white;
+                text-decoration:none; font-weight:bold; border-radius:6px; }
+
+    /* JAK DZIAŁAMY */
+    .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .step-box { padding:20px; border:1px solid #ddd; border-radius:8px; background:#fafafa; }
+
+    /* PORTFOLIO */
+    .portfolio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .portfolio-item { padding:10px; border:1px solid #ddd; border-radius:8px; text-align:center; }
+    .portfolio-item img { width:100%; height:180px; object-fit:cover; border-radius:6px; }
+
+    /* CENNIK */
+    .price-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .price-box { padding:20px; border:1px solid #ddd; background:#fafafa; border-radius:8px; }
+
+    @media(max-width:900px){
+      .steps-grid { grid-template-columns:1fr; }
+      .portfolio-grid { grid-template-columns:1fr; }
+      .price-grid { grid-template-columns:1fr; }
+    }
+  </style>
 </head>
 <body>
-<header>
-<img src="logo.png" alt="logo">
- <h1>Wirtualny Spacer Wrocław</h1>
-</header>
+  <header>
+    <div class="logo"><img src="Awatar.png" alt="logo"></div>
+    <nav>
+      <a href="#home">HOME</a>
+      <a href="#jak">JAK DZIAŁAMY</a>
+      <a href="#portfolio">PORTFOLIO</a>
+      <a href="#blog">BLOG</a>
+      <a href="#cennik">CENNIK</a>
+      <a href="#kontakt">KONTAKT</a>
+    </nav>
+    <div class="phone-box">
+      <a href="tel:+48605318632">📞 +48 605 318 632</a>
+      <span>ZADZWOŃ TERAZ</span>
+    </div>
+  </header>
 
-<div class="hero">
-<img src="hero.png" alt="hero">
-</div>
+  <!-- HERO -->
+  <section id="home" class="hero" style="background-image:url('hero.jpg');">
+    <h1>Wirtualne Spacery Wrocław</h1>
+  </section>
 
-<section>
- <h2>Przykładowy spacer</h2>
- <p>Zapraszamy do obejrzenia naszego przykładowego wirtualnego spaceru:</p>
- <a class="button" href="https://claritytab.github.io/PurpurowyDomek/" target="_blank">Otwórz wirtualny spacer</a>
-</section>
+  <!-- CZYM JEST WIRTUALNY SPACER -->
+  <section class="section" id="czym">
+    <div class="flex-row">
+      <div style="flex:1;">
+        <h2>CZYM JEST WIRTUALNY SPACER?</h2>
+        <p>Wirtualny spacer to interaktywna prezentacja nieruchomości pozwalająca zwiedzić ją zdalnie, jakbyś był na miejscu.</p>
 
-<section>
- <h2>Czym jest wirtualny spacer?</h2>
- <p>Wirtualny spacer 360° to interaktywna prezentacja przestrzeni, która pozwala oglądać wnętrze i teren zewnętrzny jakbyś był tam osobiście. Użytkownik może dowolnie obracać widok, przechodzić między punktami i dokładnie poznać układ nieruchomości.</p>
+        <h3>CO DZIĘKI NIEMU ZYSKASZ?</h3>
+        <div class="benefit-icons">
+          <div class="benefit-item"><img src="icon1.png"><br>Doskonałe pierwsze wrażenie</div>
+          <div class="benefit-item"><img src="icon2.png"><br>Pieniądze</div>
+          <div class="benefit-item"><img src="icon3.png"><br>Czas</div>
+        </div>
 
- <h3>Gdzie można go zastosować?</h3>
- <p>Wirtualne spacery idealnie sprawdzają się w sprzedaży i wynajmie nieruchomości, prezentacji domów, mieszkań, biur, apartamentów, lokali usługowych oraz terenów zewnętrznych. Pomagają wyróżnić ofertę, zwiększyć zainteresowanie i skrócić czas poszukiwania klientów.</p>
-</section>
+        <a href="tel:+48605318632" class="call-btn">ZADZWOŃ +48 605 318 632</a>
+      </div>
 
-<section>
- <h2>Oferta</h2>
- <p>Oferuję usługę tworzenia wirtualnych spacerów 360° dla nieruchomości wszelkiego typu: mieszkań, domów, lokali usługowych, budynków komercyjnych oraz przestrzeni zewnętrznych.</p>
- <p>Realizuję sesje we Wrocławiu, okolicach Wrocławia (w promieniu ok. 20 km) oraz na terenie województwa dolnośląskiego (po wcześniejszym ustaleniu i wycenie).</p>
+      <div style="flex:1;">
+        <img src="section-photo.jpg" style="width:100%; border-radius:10px;">
+      </div>
+    </div>
+  </section>
 
- <h3>Co otrzymujesz w ramach usługi?</h3>
- <ul>
-   <li><strong>1. Pełny wirtualny spacer 360°</strong><br>Wykonywany najnowszym sprzętem gwarantującym wysoką jakość i ostrość zdjęć.</li>
-   <li><strong>2. Link do przeglądarki</strong><br>— jedno kliknięcie, aby otworzyć spacer w kilka sekund.<br>— działa na telefonie, komputerze i tablecie.<br>— gotowy do dodania do ogłoszenia nieruchomości (np. otodom).</li>
-   <li><strong>3. Plik .ZIP z pełnym projektem</strong><br>Gotowy do udostępniania, archiwizacji, otwierania offline oraz osadzania na własnej stronie.</li>
- </ul>
+  <!-- JAK DZIAŁAMY -->
+  <section class="section" id="jak">
+    <h2>JAK DZIAŁAMY?</h2>
+    <div class="steps-grid">
+      <div class="step-box">Krok 1. Kontakt i ustalenie szczegółów.</div>
+      <div class="step-box">Krok 2. Przyjazd na nieruchomość i wykonanie zdjęć.</div>
+      <div class="step-box">Krok 3. Przygotowanie wirtualnego spaceru (1–3 dni).</div>
+      <div class="step-box">Krok 4. Rozliczenie.</div>
+      <div class="step-box">Krok 5. Przesłanie linku + plik .zip.</div>
+    </div>
+  </section>
 
- <h3>Zakres pracy:</h3>
- <ul>
-   <li>mieszkania</li>
-   <li>domy</li>
-   <li>apartamenty</li>
-   <li>biura i lokale usługowe</li>
-   <li>nieruchomości komercyjne</li>
-   <li>tereny zewnętrzne</li>
- </ul>
-</section>
+  <!-- PORTFOLIO -->
+  <section class="section" id="portfolio">
+    <h2>PORTFOLIO</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item"><img src="p1.jpg"><br>Projekt 1</div>
+      <div class="portfolio-item"><img src="p2.jpg"><br>Projekt 2</div>
+      <div class="portfolio-item"><img src="p3.jpg"><br>Projekt 3</div>
+    </div>
+  </section>
 
-<section>
- <h2>Cennik – orientacyjny</h2>
- <p><strong>Mieszkanie do 40 m²</strong> (ok. 6 punktów) → <strong>399 zł brutto</strong></p>
- <p><strong>Większe nieruchomości</strong> – wycena indywidualna (zadzwoń lub napisz)</p>
- <p>Cenę ustalam na podstawie:<br>→ liczby pomieszczeń,<br>→ liczby punktów (panoram),<br>→ ujęć zewnętrznych.</p>
-</section>
+  <!-- CENNIK -->
+  <section class="section" id="cennik">
+    <h2>CENNIK</h2>
+    <p>Cena naszych usług zależy od ilości punktów panoramicznych... (tekst pełny tutaj).</p>
+    <div class="price-grid">
+      <div class="price-box">399 zł brutto<br>do 6 punktów<br>małe mieszkania</div>
+      <div class="price-box">899 zł brutto<br>do 20 punktów<br>średnie mieszkania</div>
+      <div class="price-box">1699 zł brutto<br>do 50 punktów<br>duże powierzchnie</div>
+      <div class="price-box">Wycena indywidualna<br>niestandardowe nieruchomości</div>
+    </div>
+  </section>
 
-<section>
- <h2>Kontakt</h2>
- <p>Zapraszam do kontaktu:</p>
- <p><strong>Telefon:</strong> +48 605 318 632 (Aneta)<br>
- <strong>Email:</strong> callitaplan.planit@gmail.com</p>
-</section>
-
-<footer>
- © Wirtualne Spacery Wrocław — claritytab
-</footer>
+  <section class="section" id="kontakt">
+    <h2>KONTAKT</h2>
+    <p>Zadzwoń: <a href="tel:+48605318632">+48 605 318 632</a><br>Mail: callitaplan.planit@gmail.com</p>
+  </section>
 
 </body>
 </html>
