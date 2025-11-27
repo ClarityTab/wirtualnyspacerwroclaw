@@ -1,155 +1,429 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wirtualne Spacery Wrocław</title>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; color:#333; }
-    header {
-      position: fixed; top: 0; width: 100%; background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 999;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 30px;
-    }
-    .logo img { height: 50px; }
-    nav a { margin: 0 12px; text-decoration: none; color: #333; font-weight: 600; }
-    nav a:hover { color: #6a0dad; }
-    .phone-box { text-align: right; font-size: 14px; font-weight: bold; }
-    .phone-box a { text-decoration: none; color: #6a0dad; font-size: 18px; display: block; }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Wirtualne Spacery Wrocław</title>
+<style>
+  :root{
+    --accent:#6a0dad;
+    --text:#222;
+    --muted:#6b6b6b;
+    --maxwidth:1200px;
+    --header-h:15vh; /* belka ~15% wysokości widoku */
+  }
+  html { scroll-behavior: smooth; }
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:var(--text); line-height:1.45; }
 
-    .section { padding: 120px 30px 80px; max-width:1200px; margin:auto; }
-    h2 { font-size: 32px; margin-bottom: 20px; }
+  /* === STICKY HEADER === */
+  header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:var(--header-h);
+    background:#fff;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    z-index:1000;
+    display:flex;
+    align-items:center;
+  }
+  /* wewnętrzny kontener ograniczający belkę do ram strony */
+  .nav-wrap{
+    width:100%;
+    max-width:var(--maxwidth);
+    margin:0 auto;
+    padding:0 48px; /* większe marginesy boczne */
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+  }
 
-    /* HERO */
-    .hero { position: relative; height: 70vh; background-size: cover; background-position:center;
-            display:flex; align-items:center; justify-content:center; color:white; text-shadow:0 0 10px #000; }
+  .logo img{
+    height: calc(var(--header-h) * 0.65); /* ~3x standard: dostosowuje się do header-h */
+    width:auto;
+    display:block;
+  }
 
-    /* CZYM JEST WIRTUALNY SPACER */
-    .flex-row { display:flex; gap:40px; align-items:center; flex-wrap:wrap; }
-    .benefits { margin-top:20px; }
-    .benefit-icons { display:flex; gap:40px; margin:20px 0; }
-    .benefit-item { text-align:center; }
-    .benefit-item img { width:60px; }
-    .call-btn { display:inline-block; background:#6a0dad; padding:12px 24px; color:white;
-                text-decoration:none; font-weight:bold; border-radius:6px; }
+  nav{ flex:1; margin-left:28px; }
+  nav ul{ display:flex; gap:28px; align-items:center; margin:0; padding:0; list-style:none; justify-content:flex-start; }
+  nav a{
+    text-decoration:none;
+    color:var(--text);
+    font-weight:700;
+    font-size: calc(1rem * 1.5); /* 1.5 raza większe */
+    letter-spacing:0.02em;
+  }
+  nav a:hover { color:var(--accent); }
 
-    /* JAK DZIAŁAMY */
-    .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .step-box { padding:20px; border:1px solid #ddd; border-radius:8px; background:#fafafa; }
+  .call-box{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:4px;
+    min-width:200px;
+  }
+  .call-box a.phone{
+    text-decoration:none;
+    color:var(--accent);
+    font-size:calc(1.05rem * 1.5);
+    font-weight:800;
+  }
+  .call-box .cta{ font-size:0.85rem; color:var(--muted); font-weight:600; letter-spacing:0.02em; }
 
-    /* PORTFOLIO */
-    .portfolio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .portfolio-item { padding:10px; border:1px solid #ddd; border-radius:8px; text-align:center; }
-    .portfolio-item img { width:100%; height:180px; object-fit:cover; border-radius:6px; }
+  /* padding top to compensate for fixed header */
+  main{ padding-top: calc(var(--header-h) + 10px); }
 
-    /* CENNIK */
-    .price-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
-    .price-box { padding:20px; border:1px solid #ddd; background:#fafafa; border-radius:8px; }
+  /* === HERO === */
+  .hero{
+    height:70vh;
+    max-height:900px;
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    color: #fff;
+  }
+  .hero-inner{
+    max-width:var(--maxwidth);
+    margin:0 auto;
+    padding:40px 48px;
+    display:flex;
+    align-items:center;
+    gap:30px;
+  }
+  .hero h1{
+    margin:0;
+    font-size:clamp(2rem,4vw,4rem);
+    line-height:0.95;
+    font-weight:900;
+    text-shadow:0 6px 30px rgba(0,0,0,0.45);
+    letter-spacing:-1px;
+  }
 
-    @media(max-width:900px){
-      .steps-grid { grid-template-columns:1fr; }
-      .portfolio-grid { grid-template-columns:1fr; }
-      .price-grid { grid-template-columns:1fr; }
-    }
-  </style>
+  /* === SEKCJA: czym jest === */
+  .section { padding:64px 24px; max-width:var(--maxwidth); margin:0 auto; }
+  .two-col { display:flex; gap:36px; align-items:center; flex-wrap:wrap; }
+  .left { flex:1 1 520px; min-width:280px; }
+  .right { flex:1 1 420px; min-width:260px; }
+  .left h2{ margin-top:0; font-size:1.6rem; }
+  .left p.lead{ color:var(--muted); margin-top:8px; font-size:1rem; }
+
+  .benefits { margin-top:22px; }
+  .benefit-list{ display:flex; gap:22px; flex-wrap:wrap; margin-top:12px; }
+  .benefit{ display:flex; flex-direction:column; align-items:center; gap:8px; width:150px; text-align:center; color:var(--text); }
+  .benefit svg{ width:48px; height:48px; stroke:var(--accent); stroke-width:1.6; fill:none; }
+
+  .call-primary{
+    display:inline-block;
+    margin-top:18px;
+    background:var(--accent);
+    color:#fff;
+    padding:12px 22px;
+    border-radius:7px;
+    text-decoration:none;
+    font-weight:700;
+  }
+
+  /* === JAK DZIALAMY (kafelki) === */
+  .steps{
+    margin-top:8px;
+  }
+  .steps-grid{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .step{
+    background:#fff;
+    border-radius:10px;
+    padding:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    border:1px solid #efefef;
+    font-weight:600;
+  }
+  /* drugi rząd ma 2 kafelki, więc ustawimy modyfikator */
+  .steps-grid-2{
+    margin-top:12px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+
+  /* === PORTFOLIO === */
+  .portfolio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:20px; }
+  .portfolio-item{ border-radius:10px; overflow:hidden; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.06); text-align:center; }
+  .portfolio-item img{ width:100%; height:220px; object-fit:cover; display:block; }
+  .portfolio-item h4{ margin:12px; font-size:1rem; }
+
+  /* === CENNIK === */
+  .pricing-intro{ color:var(--muted); margin-bottom:10px; }
+  .price-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:18px; }
+  .price-card{ background:#fff; padding:18px; border-radius:10px; border:1px solid #eee; box-shadow:0 8px 22px rgba(0,0,0,0.05); text-align:left; }
+  .price-card h3{ margin:0 0 8px 0; font-size:1.1rem; color:var(--accent); }
+  .price-card p{ margin:6px 0; color:var(--muted); font-size:0.95rem; }
+
+  /* === BLOG === */
+  .blog-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:18px; }
+  .blog-card{ background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.05); text-align:left; }
+  .blog-card img{ width:100%; height:140px; object-fit:cover; display:block; }
+  .blog-card .meta{ padding:10px; }
+
+  /* === KONTAKT === */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; align-items:start; }
+  .contact-card{ background:#fff; padding:18px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.05); }
+  .socials a{ display:flex; gap:10px; align-items:center; text-decoration:none; color:var(--text); margin-bottom:8px; }
+
+  footer{ padding:28px; text-align:center; color:var(--muted); font-size:0.95rem; }
+
+  /* RESPONSIVE */
+  @media (max-width:1100px){
+    .nav-wrap{ padding:0 28px; }
+    .portfolio-item img{ height:180px; }
+    .price-grid{ grid-template-columns:repeat(2,1fr); }
+    .blog-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:800px){
+    header{ height:14vh; }
+    .nav-wrap{ padding:0 18px; }
+    nav{ display:none; } /* dla prostoty: ukryjemy pełne menu na mobile; można dodać hamburger */
+    .call-box{ min-width:140px; }
+    .hero-inner{ padding:18px; }
+    .two-col{ flex-direction:column-reverse; align-items:stretch; }
+    .portfolio-grid{ grid-template-columns:1fr; }
+    .steps-grid{ grid-template-columns:1fr; }
+    .price-grid{ grid-template-columns:1fr; }
+    .blog-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+  }
+</style>
 </head>
 <body>
-  <header>
-  <div class="nav-container">
 
+<header>
+  <div class="nav-wrap">
     <div class="logo">
-      <img src="images/logo.png" alt="ClarityTab logo">
+      <!-- upewnij się, że w repo jest Logotyp.png -->
+      <img src="Logotyp.png" alt="logo" />
     </div>
 
-    <nav>
+    <nav aria-label="Główne menu">
       <ul>
-        <li><a href="#home">HOME</a></li>
-        <li><a href="#how">JAK DZIAŁAMY</a></li>
-        <li><a href="#portfolio">PORTFOLIO</a></li>
-        <li><a href="#blog">BLOG</a></li>
-        <li><a href="#pricing">CENNIK</a></li>
-        <li><a href="#contact">KONTAKT</a></li>
+        <li><a href="#home" data-target="home">HOME</a></li>
+        <li><a href="#jak" data-target="jak">JAK DZIAŁAMY</a></li>
+        <li><a href="#portfolio" data-target="portfolio">PORTFOLIO</a></li>
+        <li><a href="#blog" data-target="blog">BLOG</a></li>
+        <li><a href="#cennik" data-target="cennik">CENNIK</a></li>
+        <li><a href="#kontakt" data-target="kontakt">KONTAKT</a></li>
       </ul>
     </nav>
 
-    <div class="call-box">
-      <a href="tel:+48605318632">
-        <span class="phone-icon">📞</span> +48 605 318 632
-      </a>
-      <span>ZADZWOŃ TERAZ</span>
+    <div class="call-box" aria-hidden="false">
+      <!-- tel: spowoduje uruchomienie aplikacji Telefon na urządzeniach mobilnych -->
+      <a class="phone" href="tel:+48605318632">📞 +48 605 318 632</a>
+      <span class="cta">ZADZWOŃ TERAZ</span>
     </div>
-
   </div>
 </header>
 
-
-  <!-- HERO -->
+<main>
+  <!-- HERO: wgraj plik hero.jpg lub zmień ścieżkę -->
   <section id="home" class="hero" style="background-image:url('hero.jpg');">
-    <h1>Wirtualne Spacery Wrocław</h1>
+    <div class="hero-inner">
+      <div>
+        <h1>WIRTUALNE SPACERY NIERUCHOMOŚCI</h1>
+        <p style="color:rgba(255,255,255,0.9); margin-top:14px; font-weight:600;">
+          Zobacz nieruchomość tak jasno, jakbyś tam był — szybko, wygodnie, profesjonalnie.
+        </p>
+      </div>
+    </div>
   </section>
 
-  <!-- CZYM JEST WIRTUALNY SPACER -->
-  <section class="section" id="czym">
-    <div class="flex-row">
-      <div style="flex:1;">
+  <!-- CZYM JEST -->
+  <section id="czym" class="section">
+    <div class="two-col">
+      <div class="left">
         <h2>CZYM JEST WIRTUALNY SPACER?</h2>
-        <p>Wirtualny spacer to interaktywna prezentacja nieruchomości pozwalająca zwiedzić ją zdalnie, jakbyś był na miejscu.</p>
+        <p class="lead">Wirtualny spacer to interaktywna prezentacja nieruchomości w 360°, która pozwala odwiedzić wnętrze i otoczenie z dowolnego urządzenia — tak jakbyś stał na miejscu.</p>
 
-        <h3>CO DZIĘKI NIEMU ZYSKASZ?</h3>
-        <div class="benefit-icons">
-          <div class="benefit-item"><img src="icon1.png"><br>Doskonałe pierwsze wrażenie</div>
-          <div class="benefit-item"><img src="icon2.png"><br>Pieniądze</div>
-          <div class="benefit-item"><img src="icon3.png"><br>Czas</div>
+        <h3 style="margin-top:18px;">CO DZIĘKI NIEMU ZYSKASZ?</h3>
+        <div class="benefit-list">
+          <div class="benefit">
+            <!-- prosty outline icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+            <div>Doskonałe pierwsze wrażenie</div>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h4l2 6 8-12"/></svg>
+            <div>Pieniądze</div>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>
+            <div>Czas</div>
+          </div>
         </div>
 
-        <a href="tel:+48605318632" class="call-btn">ZADZWOŃ +48 605 318 632</a>
+        <a class="call-primary" href="tel:+48605318632">ZADZWOŃ +48 605 318 632</a>
       </div>
 
-      <div style="flex:1;">
-        <img src="section-photo.jpg" style="width:100%; border-radius:10px;">
+      <div class="right">
+        <!-- wgraj section-photo.jpg (screenshot z PurpurowyDomek) -->
+        <img src="section-photo.jpg" alt="Przykładowy spacer" style="width:100%; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.08)" />
       </div>
     </div>
   </section>
 
   <!-- JAK DZIAŁAMY -->
-  <section class="section" id="jak">
+  <section id="jak" class="section">
     <h2>JAK DZIAŁAMY?</h2>
-    <div class="steps-grid">
-      <div class="step-box">Krok 1. Kontakt i ustalenie szczegółów.</div>
-      <div class="step-box">Krok 2. Przyjazd na nieruchomość i wykonanie zdjęć.</div>
-      <div class="step-box">Krok 3. Przygotowanie wirtualnego spaceru (1–3 dni).</div>
-      <div class="step-box">Krok 4. Rozliczenie.</div>
-      <div class="step-box">Krok 5. Przesłanie linku + plik .zip.</div>
+    <div class="steps">
+      <div class="steps-grid">
+        <div class="step">Krok 1. Kontakt i ustalenie szczegółów (lokalizacja, data, zakres).</div>
+        <div class="step">Krok 2. Przyjazd na nieruchomość i wykonanie zdjęć.</div>
+        <div class="step">Krok 3. Przygotowanie wirtualnego spaceru (1-3 dni robocze).</div>
+      </div>
+
+      <div class="steps-grid-2">
+        <div class="step">Krok 4. Rozliczenie.</div>
+        <div class="step">Krok 5. Przesłanie e-mailem linku do gotowego wirtualnego spaceru oraz kopii w formacie .zip.</div>
+      </div>
     </div>
   </section>
 
   <!-- PORTFOLIO -->
-  <section class="section" id="portfolio">
+  <section id="portfolio" class="section">
     <h2>PORTFOLIO</h2>
     <div class="portfolio-grid">
-      <div class="portfolio-item"><img src="p1.jpg"><br>Projekt 1</div>
-      <div class="portfolio-item"><img src="p2.jpg"><br>Projekt 2</div>
-      <div class="portfolio-item"><img src="p3.jpg"><br>Projekt 3</div>
+      <div class="portfolio-item">
+        <a href="https://claritytab.github.io/PurpurowyDomek/" target="_blank" rel="noopener">
+          <img src="p1.jpg" alt="Projekt 1 (Przykład)" />
+          <h4>Purpurowy Domek — przykładowy spacer</h4>
+        </a>
+      </div>
+      <div class="portfolio-item">
+        <img src="p2.jpg" alt="Projekt 2" />
+        <h4>Przykład 2</h4>
+      </div>
+      <div class="portfolio-item">
+        <img src="p3.jpg" alt="Projekt 3" />
+        <h4>Przykład 3</h4>
+      </div>
     </div>
   </section>
 
   <!-- CENNIK -->
-  <section class="section" id="cennik">
+  <section id="cennik" class="section">
     <h2>CENNIK</h2>
-    <p>Cena naszych usług zależy od ilości punktów panoramicznych... (tekst pełny tutaj).</p>
+    <p class="pricing-intro">
+      Cena naszych usług zależy od ilości punktów (fotografii 360 stopni) wykonanych na lokalizacji. To wynika często z metrażu. Poniżej przedstawiamy nasz cennik. Dojazd na terenie Wrocławia i w promieniu do 20km wliczony jest w ceny przedstawione poniżej.
+    </p>
+
     <div class="price-grid">
-      <div class="price-box">399 zł brutto<br>do 6 punktów<br>małe mieszkania</div>
-      <div class="price-box">899 zł brutto<br>do 20 punktów<br>średnie mieszkania</div>
-      <div class="price-box">1699 zł brutto<br>do 50 punktów<br>duże powierzchnie</div>
-      <div class="price-box">Wycena indywidualna<br>niestandardowe nieruchomości</div>
+      <div class="price-card">
+        <h3>399 zł brutto</h3>
+        <p>spacer zawiera do 6 punktów panoramicznych (zdjęć 360 stopni)</p>
+        <p>przeznaczony dla małych mieszkań (do 40m²), małych punktów usługowych, małych działek ROD</p>
+      </div>
+      <div class="price-card">
+        <h3>899 zł brutto</h3>
+        <p>spacer zawiera do 20 punktów panoramicznych</p>
+        <p>przeznaczony dla mieszkań o pow. do 100m², restauracji, biur</p>
+      </div>
+      <div class="price-card">
+        <h3>1 699 zł brutto</h3>
+        <p>spacer zawiera do 50 punktów panoramicznych</p>
+        <p>przeznaczony dla mieszkań o pow. do 400m², dużych lokali usługowych, dużych działek/ogrodów</p>
+      </div>
+      <div class="price-card">
+        <h3>Wycena indywidualna</h3>
+        <p>niestandardowe nieruchomości, duże powierzchnie powyżej 400m²</p>
+        <p>gdy nie pasujesz do "standardu" ;)</p>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="kontakt">
-    <h2>KONTAKT</h2>
-    <p>Zadzwoń: <a href="tel:+48605318632">+48 605 318 632</a><br>Mail: callitaplan.planit@gmail.com</p>
+  <!-- BLOG -->
+  <section id="blog" class="section">
+    <h2>BLOG</h2>
+    <div class="blog-grid">
+      <div class="blog-card"><a href="/blog/post1.html"><img src="p1.jpg" alt=""><div class="meta"><strong>Artykuł 1</strong><div style="color:var(--muted);font-size:0.9rem">Krótki opis</div></div></a></div>
+      <div class="blog-card"><a href="/blog/post2.html"><img src="p2.jpg" alt=""><div class="meta"><strong>Artykuł 2</strong><div style="color:var(--muted);font-size:0.9rem">Krótki opis</div></div></a></div>
+      <div class="blog-card"><a href="/blog/post3.html"><img src="p3.jpg" alt=""><div class="meta"><strong>Artykuł 3</strong><div style="color:var(--muted);font-size:0.9rem">Krótki opis</div></div></a></div>
+      <div class="blog-card"><a href="/blog/post4.html"><img src="p1.jpg" alt=""><div class="meta"><strong>Artykuł 4</strong><div style="color:var(--muted);font-size:0.9rem">Krótki opis</div></div></a></div>
+      <div class="blog-card"><a href="/blog/post5.html"><img src="p2.jpg" alt=""><div class="meta"><strong>Artykuł 5</strong><div style="color:var(--muted);font-size:0.9rem">Krótki opis</div></div></a></div>
+    </div>
+    <p style="margin-top:10px;color:var(--muted)">Po kliknięciu w artykuł użytkownik zostanie przeniesiony na oddzielną podstronę (przykładowe ścieżki w linkach).</p>
   </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt" class="section">
+    <h2>KONTAKT</h2>
+    <div class="contact-grid">
+      <div class="contact-card" style="text-align:center;">
+        <!-- logo w środku -->
+        <img src="Logotyp.png" alt="logo" style="max-width:180px; opacity:0.95;">
+        <p style="margin-top:12px; font-weight:700">Napisz lub zadzwoń:<br><strong>Aneta Grzesiak</strong></p>
+        <p><strong>Telefon:</strong> <a href="tel:+48605318632">+48 605 318 632</a><br><strong>E-mail:</strong> <a href="mailto:callitaplan.planit@gmail.com">callitaplan.planit@gmail.com</a></p>
+      </div>
+
+      <div class="contact-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="font-weight:700;margin-bottom:10px">Znajdź mnie na:</div>
+        <div class="socials" style="display:flex;flex-direction:column;align-items:center;">
+          <a href="https://www.instagram.com/claritytab/" target="_blank" rel="noopener">
+            <!-- prosty icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;"><rect x="3" y="3" width="18" height="18" rx="4" ry="4" stroke="var(--text)" fill="none"/></svg>
+            <span>@claritytab</span>
+          </a>
+          <a href="https://www.tiktok.com/@claritytab" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" style="margin-right:8px;"><path d="M9 8v8a3 3 0 1 0 3-3V5h3" stroke="var(--text)" fill="none"/></svg>
+            <span>ClarityTab</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text)"><path d="M21 10v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7"/></svg>
+          <div>
+            <strong>Lokalizacja:</strong>
+            <div style="color:var(--muted); margin-top:6px;">Wrocław, Oława, Oleśnica, Wałbrzych, Opole, Częstochowa, i wiele innych</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © Wirtualne Spacery Wrocław • Aneta Grzesiak
+  </footer>
+</main>
+
+<script>
+  /* Smooth scroll with offset to account for fixed header height */
+  (function(){
+    const header = document.querySelector('header');
+    function getHeaderHeight(){
+      return header ? header.getBoundingClientRect().height : 0;
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+        if(!href || href === '#') return;
+        const targetId = href.replace('#','');
+        const target = document.getElementById(targetId);
+        if(target){
+          e.preventDefault();
+          const y = target.getBoundingClientRect().top + window.pageYOffset - getHeaderHeight() - 10;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
